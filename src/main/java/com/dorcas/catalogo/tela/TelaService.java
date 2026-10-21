@@ -24,7 +24,7 @@ public class TelaService {
 
         return telas.stream()
                 .filter(t -> categoria == null || t.getCategoria() == categoria)
-                .filter( t -> t.esAptaPrincipiantes() == aptaPrincipiantes)
+                .filter( t -> aptaPrincipiantes == null || t.esAptaPrincipiantes() == aptaPrincipiantes)
                 .toList();
     }
 
