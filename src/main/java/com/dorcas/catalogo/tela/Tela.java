@@ -2,7 +2,7 @@ package com.dorcas.catalogo.tela;
 
 public class Tela {
     private final Long id;
-    private final String referencia;
+    private String referencia;
     private String nombre;
     private Categoria categoria;
     private double precioMetro;
@@ -102,4 +102,23 @@ public class Tela {
 
         return consejo;
     }
+
+
+    public void modificar(String referencia, String nombre, Categoria categoria, double precioMetro, double stockMetros, boolean aptaPrincipiantes){
+        this.referencia = referencia;
+        this.nombre = nombre;
+        this.categoria  = categoria;
+        this.precioMetro = precioMetro;
+        this.stockMetros = stockMetros;
+        this.aptaPrincipiantes = aptaPrincipiantes;
+    }
+
+    public void cambiarPrecio(double nuevoPrecio){
+        if (nuevoPrecio <= 0){
+            throw  new IllegalArgumentException("El precio debe ser positivo: " +nuevoPrecio);
+        }
+        this.precioMetro = nuevoPrecio;
+    }
+
 }
+
