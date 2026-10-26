@@ -40,9 +40,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ErrorInfo> parametroIncorrect(MethodArgumentTypeMismatchException e, HttpServletRequest request){
+    public ResponseEntity<ErrorInfo> parametroIncorrecto(MethodArgumentTypeMismatchException e, HttpServletRequest request){
         return construir(HttpStatus.BAD_REQUEST, "PARAMETRO_NO_VALIDO",
-                "El parametro'" + e.getName() + "'no admite el valor'" + e.getValue() + "'", request, List.of());
+                "El parámetro'" + e.getName() + "' no admite el valor '" + e.getValue() + "'", request, List.of());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

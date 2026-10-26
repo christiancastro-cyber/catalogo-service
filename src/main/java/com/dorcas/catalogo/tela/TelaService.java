@@ -53,11 +53,11 @@ public class TelaService {
         Tela tela = buscarPorId(id);
         tela.vender(metros);
         double importe = tela.precioPara(metros);
-        ventas.add(new VentaOutputDto(siguienteIdVenta++, tela.getId(), metros,importe,tela.getStockMetros()));
-        return new VentaOutputDto(siguienteIdVenta++, tela.getId(), metros,importe,tela.getStockMetros());
+        VentaOutputDto venta = new VentaOutputDto (siguienteIdVenta++, tela.getId(), metros,importe,tela.getStockMetros());
+        ventas.add(venta);
+        return venta;
     }
 
-    //public List<VentaOutputDto> listarVentas()
 
     public List<Tela> listar(Categoria categoria, Boolean aptaPrincipiantes){
         return telas.stream()
@@ -66,8 +66,11 @@ public class TelaService {
                 .toList();
     }
 
-    public List<VentaOutputDto> listarVentas(){
-        return ventas;
+    public List<VentaOutputDto> listarVentas(Long telaId){
+        buscarPorId(telaId);
+        return ventas.stream()
+                .filter(v -> v.telaId().equals(telaId))
+                .toList();
     }
 
     public Tela buscarPorId(Long id){

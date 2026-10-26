@@ -21,7 +21,7 @@ public class TelaController {
     public ResponseEntity<TelaOutputDto> crear(@Valid @RequestBody TelaInputDto input){
         Tela tela = telaService.crear(input);
         return ResponseEntity
-                .created(URI.create("/api/telas" + tela.getId()))
+                .created(URI.create("/api/telas/" + tela.getId()))
                 .body(TelaOutputDto.desde(tela));
     }
 
@@ -62,7 +62,7 @@ public class TelaController {
 
     @GetMapping("/{id}/ventas")
     public List<VentaOutputDto> listarVentas(@PathVariable Long id){
-        return telaService.listarVentas();
+        return telaService.listarVentas(id);
     }
 
 
