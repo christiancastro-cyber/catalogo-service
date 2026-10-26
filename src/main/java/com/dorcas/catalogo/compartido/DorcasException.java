@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.compartido;
 
 public class DorcasException extends RuntimeException {
     private final String codigo;

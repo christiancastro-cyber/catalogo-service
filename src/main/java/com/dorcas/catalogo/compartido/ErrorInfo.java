@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.compartido;
 
 import java.time.Instant;
 import java.util.List;

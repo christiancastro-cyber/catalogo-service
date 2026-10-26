@@ -1,5 +1,8 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.compartido;
 
+import com.dorcas.catalogo.tela.ReferenciaDuplicadaException;
+import com.dorcas.catalogo.tela.StockInsuficienteException;
+import com.dorcas.catalogo.tela.TelaNoEncontradaException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +18,13 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(TelaNoEncontradaException.class)
-        public ResponseEntity<ErrorInfo> noEncontrada(TelaNoEncontradaException e, HttpServletRequest request){
+    @ExceptionHandler(RecursoNoEncontradoException.class)
+        public ResponseEntity<ErrorInfo> noEncontrado(RecursoNoEncontradoException e, HttpServletRequest request){
             return construir(HttpStatus.NOT_FOUND, e.getCodigo(), e.getMessage(), request, List.of());
     }
 
-    @ExceptionHandler({StockInsuficienteException.class, ReferenciaDuplicadaException.class})
-    public ResponseEntity<ErrorInfo> conflicto(DorcasException e, HttpServletRequest request){
+    @ExceptionHandler({ConflictoException.class, ReferenciaDuplicadaException.class})
+    public ResponseEntity<ErrorInfo> conflicto(ConflictoException e, HttpServletRequest request){
         return construir(HttpStatus.CONFLICT, e.getCodigo(), e.getMessage(), request, List.of());
     }
 
@@ -42,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorInfo> parametroIncorrecto(MethodArgumentTypeMismatchException e, HttpServletRequest request){
         return construir(HttpStatus.BAD_REQUEST, "PARAMETRO_NO_VALIDO",
-                "El parámetro'" + e.getName() + "' no admite el valor '" + e.getValue() + "'", request, List.of());
+                "El parámetro '" + e.getName() + "' no admite el valor '" + e.getValue() + "'", request, List.of());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
