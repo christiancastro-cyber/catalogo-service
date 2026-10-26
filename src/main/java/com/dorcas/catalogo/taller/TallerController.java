@@ -13,41 +13,45 @@ import java.util.List;
 @RequestMapping("/api/talleres")
 public class TallerController {
     private final TallerService tallerService;
-    private final TelaService telaService;
 
-    public TallerController(TallerService tallerService, TelaService telaService) {this.tallerService = tallerService;
-        this.telaService = telaService;
+    public TallerController(TallerService tallerService) {
+        this.tallerService = tallerService;
     }
-
-    @PostMapping("/{id}/reservas")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<TallerOutputDto> crear(@PathVariable Long id, @Valid @RequestBody Reserva input){
-        Reserva reserva = tallerService.apuntar(id, input.alumna());
-        Taller taller = tallerService.buscarPorId(id);
-
-        return ResponseEntity
-                .created(URI.create("api/talleres/" + id + "/reservas/" +reserva.id()))
-                .body(TallerOutputDto.desde(taller));
-    }
-
 
     @GetMapping
-    public List<TallerOutputDto> listar(@RequestParam(required = false) Nivel nivel, @RequestParam(required = false) Boolean conPlazas){
+    public List<TallerOutputDto> listar(@RequestParam(required = false) Nivel nivel,
+                                        @RequestParam(required = false) Boolean conPlazas) {
         return tallerService.listar(nivel, conPlazas).stream()
                 .map(TallerOutputDto::desde)
                 .toList();
     }
 
-
     @GetMapping("{id}")
-    public TallerOutputDto ver(@PathVariable Long id){return TallerOutputDto.desde(tallerService.buscarPorId(id));}
+    public TallerOutputDto ver(@PathVariable Long id) {
+        return TallerOutputDto.desde(tallerService.buscarPorId(id));
+    }
 
     @GetMapping("/{id}/reservas")
-    public List<Reserva> listarReservas(@PathVariable Long id){return tallerService.listarReservas(id);}
+    public List<ReservaOutputDto> listarReservas(@PathVariable Long id) {
+        return tallerService.listarReservas(id).stream()
+                .map(reserva -> ReservaOutputDto.desde(id, reserva))
+                .toList();
+    }
+
+
+    @PostMapping("/{id}/reservas")
+    public ResponseEntity<ReservaOutputDto> apuntar(@PathVariable Long id,
+                                                    @Valid @RequestBody ReservaInputDto input) {
+        Reserva reserva = tallerService.apuntar(id, input.alumna());
+
+        return ResponseEntity
+                .created(URI.create("api/talleres/" + id + "/reservas/" + reserva.id()))
+                .body(ReservaOutputDto.desde(id, reserva));
+    }
 
     @DeleteMapping("/{id}/reservas/{reservaId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void borrar(@PathVariable Long id, @PathVariable Long reservaId){
+    public void borrar(@PathVariable Long id, @PathVariable Long reservaId) {
         tallerService.quitar(id, reservaId);
     }
 

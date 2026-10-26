@@ -8,7 +8,6 @@ import java.util.List;
 @Service
 class TallerService {
     private final List<Taller> talleres = new ArrayList<>();
-    private final List<Reserva> reservas = new ArrayList<>();
     private long siguienteIdReserva = 1;
 
     public TallerService() {
@@ -18,37 +17,35 @@ class TallerService {
         talleres.add(new Taller(4L, "Corsetería", Nivel.INTERMEDIO, 2, 70.0));
     }
 
-    public List<Taller> listar(Nivel nivel, Boolean conPlazas){
+    public List<Taller> listar(Nivel nivel, Boolean conPlazas) {
         return talleres.stream()
-                .filter(t-> nivel == null || t.getNivel() == nivel)
-                .filter(t-> conPlazas == null || t.estaCompleto() == conPlazas)
+                .filter(t -> nivel == null || t.getNivel() == nivel)
+                .filter(t -> conPlazas == null || !t.estaCompleto() == conPlazas)
                 .toList();
     }
 
-    public Taller buscarPorId(Long id){
+    public Taller buscarPorId(Long id) {
         return talleres.stream()
-                .filter(t->t.getId().equals(id))
+                .filter(t -> t.getId().equals(id))
                 .findFirst()
-                .orElseThrow(()->new TallerNoEncontradoException(id));
+                .orElseThrow(() -> new TallerNoEncontradoException(id));
     }
 
-    public List<Reserva> listarReservas(Long tallerId){
+    public List<Reserva> listarReservas(Long tallerId) {
         Taller taller = buscarPorId(tallerId);
         return taller.getReservas();
     }
 
-    public Reserva apuntar(Long tallerId, String alumna){
+    public Reserva apuntar(Long tallerId, String alumna) {
         Taller taller = buscarPorId(tallerId);
-        return  taller.apuntar(siguienteIdReserva++,alumna);
+        return taller.apuntar(siguienteIdReserva++, alumna);
     }
 
 
-    public void quitar(Long tallerId, Long reservaId){
+    public void quitar(Long tallerId, Long reservaId) {
         Taller taller = buscarPorId(tallerId);
         taller.quitar(reservaId);
     }
-
-
 
 
 }

@@ -10,7 +10,6 @@ public class Taller {
     private final int plazas;
     private final double precio;
     private final List<Reserva> reservas = new ArrayList<>();
-    private Boolean conPlazas;
 
     public Taller(Long id, String nombre, Nivel nivel, int plazas, double precio) {
         this.id = id;
@@ -20,36 +19,36 @@ public class Taller {
         this.precio = precio;
     }
 
-    public Reserva apuntar(Long reservaId, String alumna){
-        if(estaCompleto()){
+    public Reserva apuntar(Long reservaId, String alumna) {
+        if (estaCompleto()) {
             throw new TallerCompletoException(nombre, plazas);
         }
         boolean yaApuntada = reservas.stream()
                 .anyMatch(r -> r.alumna().equalsIgnoreCase(alumna));
-        if(yaApuntada){
-            throw new AlumnaYaApuntada(alumna, nombre);
+        if (yaApuntada) {
+            throw new AlumnaYaApuntadaException(alumna, nombre);
         }
         Reserva reserva = new Reserva(reservaId, alumna);
         reservas.add(reserva);
         return reserva;
     }
 
-    public void quitar(Long reservaId){
+    public void quitar(Long reservaId) {
         boolean quitada = reservas.removeIf(r -> r.id().equals(reservaId));
-        if(!quitada){
+        if (!quitada) {
             throw new ReservaNoEncontradaException(id, reservaId);
         }
     }
 
-    public boolean estaCompleto(){
+    public boolean estaCompleto() {
         return reservas.size() >= plazas;
     }
 
-    public int plazasLibres(){
+    public int plazasLibres() {
         return plazas - reservas.size();
     }
 
-    public List<Reserva> getReservas(){
+    public List<Reserva> getReservas() {
         return List.copyOf(reservas);
     }
 
