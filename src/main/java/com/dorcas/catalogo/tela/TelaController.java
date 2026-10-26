@@ -47,7 +47,6 @@ public class TelaController {
         return telaService.vender(id, input.metros());
     }
 
-
     @GetMapping
     public List<TelaOutputDto> listar(@RequestParam(required= false) Categoria categoria, @RequestParam(required = false) Boolean aptaPrincipiantes){
         return telaService.listar(categoria, aptaPrincipiantes).stream()
@@ -64,8 +63,6 @@ public class TelaController {
     public List<VentaOutputDto> listarVentas(@PathVariable Long id){
         return telaService.listarVentas(id);
     }
-
-
 
 
 }

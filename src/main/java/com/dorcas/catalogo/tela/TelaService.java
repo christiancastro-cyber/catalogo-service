@@ -21,6 +21,7 @@ public class TelaService {
         telas.add(new Tela(6L,"ANT-01","Antelina", Categoria.HOGAR, 6.0, 12.5, false));
         telas.add(new Tela (7L,"LAM-01","Lamé", Categoria.FIESTA,5.0, 6.5, false));
         telas.add(new Tela(8L, "COR-01","Coralina", Categoria.ABRIGO, 11.50, 8, false));
+
     }
 
     public Tela crear(TelaInputDto input){
