@@ -1,6 +1,5 @@
 package com.dorcas.catalogo.taller;
 
-import com.dorcas.catalogo.tela.TelaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +44,7 @@ public class TallerController {
         Reserva reserva = tallerService.apuntar(id, input.alumna());
 
         return ResponseEntity
-                .created(URI.create("api/talleres/" + id + "/reservas/" + reserva.id()))
+                .created(URI.create("/api/talleres/" + id + "/reservas/" + reserva.id()))
                 .body(ReservaOutputDto.desde(id, reserva));
     }
 

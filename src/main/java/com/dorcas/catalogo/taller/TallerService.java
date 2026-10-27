@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-class TallerService {
+public class TallerService {
     private final List<Taller> talleres = new ArrayList<>();
     private long siguienteIdReserva = 1;
 
