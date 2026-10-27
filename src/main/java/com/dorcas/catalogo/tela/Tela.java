@@ -1,22 +1,38 @@
 package com.dorcas.catalogo.tela;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Tela {
-    private final Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 20)
     private String referencia;
+
+    @Column(nullable = false, length = 80)
     private String nombre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Categoria categoria;
+
     private double precioMetro;
     private double stockMetros;
     private boolean aptaPrincipiantes;
 
-    public Tela (Long id, String referencia, String nombre, Categoria categoria, double precioMetro, double stockMetros, boolean aptaPrincipiantes){
-        this.id = id;
+    protected  Tela(){}
+
+    public Tela (String referencia, String nombre, Categoria categoria,
+                 double precioMetro, double stockMetros, boolean aptaPrincipiantes){
         this.referencia = referencia;
         this.nombre = nombre;
+        this.categoria = categoria;
         this.precioMetro = precioMetro;
         this.stockMetros = stockMetros;
         this.aptaPrincipiantes = aptaPrincipiantes;
-        this.categoria = categoria;
     }
 
     public Long getId() {
