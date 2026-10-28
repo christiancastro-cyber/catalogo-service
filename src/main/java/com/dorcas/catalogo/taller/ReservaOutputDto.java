@@ -8,9 +8,9 @@ public record ReservaOutputDto(
 
     public static ReservaOutputDto desde(Long tallerId, Reserva reserva) {
         return new ReservaOutputDto(
-                reserva.id(),
+                reserva.getId(),
                 tallerId,
-                reserva.alumna()
+                reserva.getAlumna()
         );
     }
 }

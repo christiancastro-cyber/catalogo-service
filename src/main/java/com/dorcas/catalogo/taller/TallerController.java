@@ -44,7 +44,7 @@ public class TallerController {
         Reserva reserva = tallerService.apuntar(id, input.alumna());
 
         return ResponseEntity
-                .created(URI.create("/api/talleres/" + id + "/reservas/" + reserva.id()))
+                .created(URI.create("/api/talleres/" + id + "/reservas/" + reserva.getId()))
                 .body(ReservaOutputDto.desde(id, reserva));
     }
 

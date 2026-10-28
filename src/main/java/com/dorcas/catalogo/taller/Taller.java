@@ -1,40 +1,55 @@
 package com.dorcas.catalogo.taller;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Taller {
-    private final Long id;
-    private final String nombre;
-    private final Nivel nivel;
-    private final int plazas;
-    private final double precio;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 80)
+    private String nombre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Nivel nivel;
+
+    private int plazas;
+    private double precio;
+
+    @OneToMany(mappedBy = "taller", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Reserva> reservas = new ArrayList<>();
 
-    public Taller(Long id, String nombre, Nivel nivel, int plazas, double precio) {
-        this.id = id;
+    protected Taller(){}
+
+    public Taller(String nombre, Nivel nivel, int plazas, double precio) {
         this.nombre = nombre;
         this.nivel = nivel;
         this.plazas = plazas;
         this.precio = precio;
     }
 
-    public Reserva apuntar(Long reservaId, String alumna) {
+    public Reserva apuntar(String alumna) {
         if (estaCompleto()) {
             throw new TallerCompletoException(nombre, plazas);
         }
         boolean yaApuntada = reservas.stream()
-                .anyMatch(r -> r.alumna().equalsIgnoreCase(alumna));
+                .anyMatch(r -> r.getAlumna().equalsIgnoreCase(alumna));
         if (yaApuntada) {
             throw new AlumnaYaApuntadaException(alumna, nombre);
         }
-        Reserva reserva = new Reserva(reservaId, alumna);
+        Reserva reserva = new Reserva(this, alumna);
         reservas.add(reserva);
         return reserva;
     }
 
     public void quitar(Long reservaId) {
-        boolean quitada = reservas.removeIf(r -> r.id().equals(reservaId));
+        boolean quitada = reservas.removeIf(r -> r.getId().equals(reservaId));
         if (!quitada) {
             throw new ReservaNoEncontradaException(id, reservaId);
         }

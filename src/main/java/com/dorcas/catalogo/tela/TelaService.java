@@ -1,6 +1,7 @@
 package com.dorcas.catalogo.tela;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.List;
 public class TelaService {
 
     private final TelaRepository telaRepository;
-    private final List<VentaOutputDto> ventas = new ArrayList<>();
-    private long siguienteIdVenta = 1;
+    private final VentaRepository ventaRepository;
 
-    public TelaService(TelaRepository telaRepository) {
+    public TelaService(TelaRepository telaRepository, VentaRepository ventaRepository) {
+
         this.telaRepository = telaRepository;
+        this.ventaRepository = ventaRepository;
+
     }
 
     public List<Tela> listar(Categoria categoria, Boolean aptaPrincipiantes) {
@@ -53,25 +56,26 @@ public class TelaService {
 
     public void borrar(Long id) {
         Tela tela = buscarPorId(id);
+        if (ventaRepository.existsByTelaId(id)){
+            throw new TelaConVentasException(id);
+        }
         telaRepository.delete(tela);
     }
 
-    public VentaOutputDto vender(Long id, double metros) {
+    @Transactional
+    public VentaOutputDto vender(Long id, double metros){
         Tela tela = buscarPorId(id);
         tela.vender(metros);
         telaRepository.save(tela);
-
         double importe = tela.precioPara(metros);
-        VentaOutputDto venta = new VentaOutputDto(siguienteIdVenta++, tela.getId(),
-                metros, importe, tela.getStockMetros());
-        ventas.add(venta);
-        return venta;
+        Venta venta = ventaRepository.save(new Venta(tela, metros, importe, tela.getStockMetros()));
+        return VentaOutputDto.desde(venta);
     }
 
     public List<VentaOutputDto> listarVentas(Long telaId) {
         buscarPorId(telaId);
-        return ventas.stream()
-                .filter(v -> v.telaId().equals(telaId))
+        return ventaRepository.findByTelaIdOrderByIdAsc(telaId).stream()
+                .map(VentaOutputDto::desde)
                 .toList();
     }
 

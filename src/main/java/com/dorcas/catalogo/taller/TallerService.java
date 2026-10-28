@@ -1,34 +1,36 @@
 package com.dorcas.catalogo.taller;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TallerService {
-    private final List<Taller> talleres = new ArrayList<>();
-    private long siguienteIdReserva = 1;
 
-    public TallerService() {
-        talleres.add(new Taller(1L, "Taller de Canastilla", Nivel.INICIACION, 8, 45.0));
-        talleres.add(new Taller(2L, "Patronaje Básico", Nivel.INICIACION, 5, 50.0));
-        talleres.add(new Taller(3L, "Costura Básica", Nivel.INICIACION, 5, 55.0));
-        talleres.add(new Taller(4L, "Corsetería", Nivel.INTERMEDIO, 2, 70.0));
+    private final TallerRepository tallerRepository;
+    private final ReservaRepository reservaRepository;
+
+
+    public TallerService(TallerRepository tallerRepository, ReservaRepository reservaRepository) {
+        this.tallerRepository = tallerRepository;
+        this.reservaRepository = reservaRepository;
     }
 
     public List<Taller> listar(Nivel nivel, Boolean conPlazas) {
+        List<Taller> talleres = (nivel == null)
+                ? tallerRepository.findAll()
+                : tallerRepository.findByNivel(nivel);
+
         return talleres.stream()
-                .filter(t -> nivel == null || t.getNivel() == nivel)
                 .filter(t -> conPlazas == null || !t.estaCompleto() == conPlazas)
                 .toList();
     }
 
     public Taller buscarPorId(Long id) {
-        return talleres.stream()
-                .filter(t -> t.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new TallerNoEncontradoException(id));
+        return tallerRepository.findById(id)
+                .orElseThrow(()-> new TallerNoEncontradoException(id));
     }
 
     public List<Reserva> listarReservas(Long tallerId) {
@@ -36,9 +38,11 @@ public class TallerService {
         return taller.getReservas();
     }
 
+    @Transactional
     public Reserva apuntar(Long tallerId, String alumna) {
         Taller taller = buscarPorId(tallerId);
-        return taller.apuntar(siguienteIdReserva++, alumna);
+        Reserva reserva = taller.apuntar(alumna);
+        return reservaRepository.save(reserva);
     }
 
 
