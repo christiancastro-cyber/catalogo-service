@@ -11,9 +11,8 @@ interface VentaRepository extends JpaRepository<Venta, Long> {
 
     boolean existsByTelaId(Long telaId);
 
-    @Query("""
-            select coalesce(sum(v.metros),0) from Venta where
-                      v.tela.id = :telaId 
-          """)
-    List<Tela> metrosVendidos(double metros);
+    @Query("select coalesce(sum(v.metros), 0.0) from Venta v where v.tela.id = :telaId")
+    double sumarMetrosVendidos(Long telaId);
+
+
 }

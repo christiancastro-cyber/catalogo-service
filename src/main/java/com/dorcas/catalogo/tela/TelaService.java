@@ -3,7 +3,6 @@ package com.dorcas.catalogo.tela;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -79,8 +78,14 @@ public class TelaService {
                 .toList();
     }
 
-    public List<Tela> listaDeReposicon(double minimo){
+    public List<Tela> listaDeReposicion(double minimo){
         return telaRepository.findByStockMetrosLessThanOrderByStockMetros(minimo);
     }
+
+    public TotalVentasOutputDto totalVentas(Long telaId){
+        buscarPorId(telaId);
+        double metros = ventaRepository.sumarMetrosVendidos(telaId);
+        return new TotalVentasOutputDto(telaId, metros)
+;    }
 
 }

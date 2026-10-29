@@ -66,9 +66,14 @@ public class TelaController {
 
     @GetMapping("/reposicion")
     public List<TelaOutputDto> listarReposicion(@RequestParam(defaultValue = "10") double minimo){
-        return telaService.listaDeReposicon(minimo).stream()
+        return telaService.listaDeReposicion(minimo).stream()
                 .map(TelaOutputDto::desde)
                 .toList();
+    }
+
+    @GetMapping("/{id}/ventas/total")
+    public TotalVentasOutputDto totalVentas(@PathVariable Long id){
+        return telaService.totalVentas(id);
     }
 
 }

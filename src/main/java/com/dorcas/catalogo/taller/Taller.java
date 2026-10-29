@@ -23,7 +23,7 @@ public class Taller {
     private double precio;
 
     @OneToMany(mappedBy = "taller", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Reserva> reservas = new ArrayList<>();
+    private List<Reserva> reservas = new ArrayList<>();
 
     protected Taller(){}
 

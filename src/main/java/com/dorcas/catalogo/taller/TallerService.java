@@ -3,7 +3,6 @@ package com.dorcas.catalogo.taller;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,6 +45,7 @@ public class TallerService {
     }
 
 
+    @Transactional
     public void quitar(Long tallerId, Long reservaId) {
         Taller taller = buscarPorId(tallerId);
         taller.quitar(reservaId);
