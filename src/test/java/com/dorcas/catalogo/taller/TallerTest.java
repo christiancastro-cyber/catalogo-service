@@ -4,7 +4,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
 class TallerTest {
 
     private Taller canastilla (){
@@ -23,7 +22,7 @@ class TallerTest {
     }
 
     @Test
-    void apuntarAlumnaYaApuntadaException(){
+    void apuntarDosVecesLaMismaAlumnaLanzaExcepcion(){
         Taller taller = canastillaPetit();
 
         taller.apuntar("Ana");
@@ -33,7 +32,7 @@ class TallerTest {
     }
 
     @Test
-    void tallerCompleto(){
+    void apuntarMasAlumnasQuePlazasLanzaTallerCompleto(){
         Taller taller = canastillaPetit();
 
         taller.apuntar("Ana");
@@ -43,6 +42,13 @@ class TallerTest {
                 .isInstanceOf(TallerCompletoException.class);
     }
 
+    @Test
+    void quitarUnaReservaQueNoExisteLanzaReservaNoEncontrada() {
+        Taller taller = canastilla();
+
+        assertThatThrownBy(() -> taller.quitar(5L))
+                .isInstanceOf(ReservaNoEncontradaException.class);
+    }
 
 
 }

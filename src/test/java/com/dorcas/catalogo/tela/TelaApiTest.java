@@ -123,12 +123,12 @@ class TelaApiTest {
         mockMvc.perform(post("/api/telas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(cuerpo))
-                .andExpect(status().is4xxClientError())
+                .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.codigo").value("REFERENCIA_DUPLICADA"));
     }
 
     @Test
-    void venderTelas() throws Exception{
+    void venderSumaLosMetrosAlTotalVendido() throws Exception{
 
         String cuerpo = """
                 {
@@ -143,12 +143,12 @@ class TelaApiTest {
 
         mockMvc.perform(get("/api/telas/1/ventas/total"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("metrosVendidos").value(2.0));
+                .andExpect(jsonPath("$.metrosVendidos").value(2.0));
 
     }
 
     @Test
-    void venderTelaDepuesBorrarError() throws Exception{
+    void borrarUnaTelaConVentasDevuelve409() throws Exception{
         String cuerpo = """
                 {
                   "metros": 2
@@ -161,7 +161,7 @@ class TelaApiTest {
                 .andExpect(status().isCreated());
 
         mockMvc.perform(delete("/api/telas/1"))
-                .andExpect(status().is4xxClientError())
+                .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.codigo").value("TELA_CON_VENTAS"));
     }
 
