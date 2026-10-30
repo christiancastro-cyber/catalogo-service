@@ -26,7 +26,7 @@ public class Venta {
         this.stockRestante = stockRestante;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
