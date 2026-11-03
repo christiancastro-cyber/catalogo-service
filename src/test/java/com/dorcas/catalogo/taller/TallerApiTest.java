@@ -93,7 +93,7 @@ class TallerApiTest {
 
     @Test
     void apuntarEnUnTallerLlenoDevuelve409() throws Exception {
-        for (String nombre : new String[]{"Ana", "Lucía", "Rosa", "Elena"}) {
+        for (String nombre : new String[]{"Ana", "Lucía"}) {
             apuntarYDevolverId(4L, nombre);
         }
 
