@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.dominio;
 
 public enum Nivel {
     INICIACION("Para principiantes"),

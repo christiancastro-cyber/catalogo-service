@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.infraestructura.web;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

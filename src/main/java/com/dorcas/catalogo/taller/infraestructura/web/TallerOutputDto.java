@@ -1,4 +1,7 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.infraestructura.web;
+
+import com.dorcas.catalogo.taller.dominio.Nivel;
+import com.dorcas.catalogo.taller.dominio.Taller;
 
 public record TallerOutputDto(
         Long id,

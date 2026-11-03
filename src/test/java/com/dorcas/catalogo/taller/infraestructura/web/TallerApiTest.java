@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.infraestructura.web;
 
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;

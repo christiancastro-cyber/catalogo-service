@@ -1,13 +1,12 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.dominio;
 
-import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
 class TallerTest {
 
     private Taller canastilla (){
-        return  new Taller("Taller de Canastilla",Nivel.INICIACION,8,45.0);
+        return  new Taller("Taller de Canastilla", Nivel.INICIACION,8,45.0);
     }
 
     private Taller canastillaPetit (){

@@ -1,4 +1,6 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.infraestructura.web;
+
+import com.dorcas.catalogo.taller.dominio.Reserva;
 
 public record ReservaOutputDto(
         Long id,

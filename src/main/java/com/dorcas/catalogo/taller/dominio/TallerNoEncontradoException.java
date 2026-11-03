@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.dominio;
 
 import com.dorcas.catalogo.compartido.RecursoNoEncontradoException;
 

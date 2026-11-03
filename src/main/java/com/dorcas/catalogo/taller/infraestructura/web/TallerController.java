@@ -1,5 +1,8 @@
-package com.dorcas.catalogo.taller;
+package com.dorcas.catalogo.taller.infraestructura.web;
 
+import com.dorcas.catalogo.taller.aplicacion.TallerService;
+import com.dorcas.catalogo.taller.dominio.Nivel;
+import com.dorcas.catalogo.taller.dominio.Reserva;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
