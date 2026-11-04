@@ -1,7 +1,0 @@
-package com.dorcas.catalogo.tela.infraestructura.web;
-
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
-public record VentaInputDto(
-        @NotNull @Positive Double metros) {}
