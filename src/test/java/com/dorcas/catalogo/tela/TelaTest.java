@@ -1,6 +1,8 @@
 package com.dorcas.catalogo.tela;
 
-import org.springframework.boot.test.context.SpringBootTest;
+import com.dorcas.catalogo.tela.dominio.Categoria;
+import com.dorcas.catalogo.tela.dominio.StockInsuficienteException;
+import com.dorcas.catalogo.tela.dominio.Tela;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 

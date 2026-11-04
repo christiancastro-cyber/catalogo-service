@@ -1,5 +1,8 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.infraestructura.persistencia;
 
+import com.dorcas.catalogo.tela.dominio.Categoria;
+import com.dorcas.catalogo.tela.dominio.Tela;
+import com.dorcas.catalogo.tela.dominio.TelaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

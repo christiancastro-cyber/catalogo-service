@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.dominio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.dominio;
 
 import jakarta.persistence.*;
 

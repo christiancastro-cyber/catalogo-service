@@ -1,4 +1,7 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.infraestructura.web;
+
+import com.dorcas.catalogo.tela.dominio.Categoria;
+import com.dorcas.catalogo.tela.dominio.Tela;
 
 public record TelaOutputDto(Long id,
                             String referencia,

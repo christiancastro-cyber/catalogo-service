@@ -1,4 +1,4 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.dominio;
 
 public enum Categoria {
     MODA("Moda y confección"),

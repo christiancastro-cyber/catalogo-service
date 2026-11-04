@@ -1,5 +1,6 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.infraestructura.persistencia;
 
+import com.dorcas.catalogo.tela.dominio.Venta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

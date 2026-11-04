@@ -1,5 +1,6 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.infraestructura.web;
 
+import com.dorcas.catalogo.tela.dominio.Categoria;
 import jakarta.validation.constraints.*;
 
 public record TelaInputDto(

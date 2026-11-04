@@ -1,5 +1,8 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.infraestructura.web;
 
+import com.dorcas.catalogo.tela.aplicacion.TelaService;
+import com.dorcas.catalogo.tela.dominio.Categoria;
+import com.dorcas.catalogo.tela.dominio.Tela;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

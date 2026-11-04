@@ -1,5 +1,10 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.aplicacion;
 
+import com.dorcas.catalogo.tela.infraestructura.web.TelaInputDto;
+import com.dorcas.catalogo.tela.infraestructura.web.TotalVentasOutputDto;
+import com.dorcas.catalogo.tela.infraestructura.web.VentaOutputDto;
+import com.dorcas.catalogo.tela.VentaRepository;
+import com.dorcas.catalogo.tela.dominio.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

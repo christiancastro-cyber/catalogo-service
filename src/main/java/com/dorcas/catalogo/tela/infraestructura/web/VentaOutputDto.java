@@ -1,4 +1,6 @@
-package com.dorcas.catalogo.tela;
+package com.dorcas.catalogo.tela.infraestructura.web;
+
+import com.dorcas.catalogo.tela.dominio.Venta;
 
 public record VentaOutputDto(
         Long id, Long telaId, double metros, double importe, double stockRestante) {

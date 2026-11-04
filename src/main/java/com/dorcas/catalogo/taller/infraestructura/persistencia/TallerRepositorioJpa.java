@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-class TallerRepositorioJpa implements TallerRepositorio {
+public class TallerRepositorioJpa implements TallerRepositorio {
 
     private final TallerJpaRepository talleres;
     private final ReservaJpaRepository reservas;
