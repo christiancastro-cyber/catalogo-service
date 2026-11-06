@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-interface SaleJpaRepository extends JpaRepository<Sale, Long> {
+interface SaleJpaRepository extends JpaRepository<SaleEntity, Long> {
 
-    List<Sale> findByFabricIdOrderByIdAsc(Long fabricId);
+    List<SaleEntity> findByFabricIdOrderByIdAsc(Long fabricId);
 
     boolean existsByFabricId(Long fabricId);
 
-    @Query("select coalesce(sum(s.meters), 0.0) from Sale s where s.fabric.id = :fabricId")
+    @Query("select coalesce(sum(s.meters), 0.0) from SaleEntity s where s.fabricId = :fabricId")
     double sumMetersSold(Long fabricId);
 }

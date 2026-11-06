@@ -1,38 +1,19 @@
 package com.dorcas.catalog.workshop.domain;
 
-import jakarta.persistence.*;
-
-@Entity
 public class Booking {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
+    private final String student;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "workshop_id")
-    private Workshop workshop;
-
-    @Column(nullable = false, length = 80)
-    private String student;
-
-    protected Booking() {
+    public Booking(String student) {
+        this(null, student);
     }
 
-    public Booking(Workshop workshop, String student) {
-        this.workshop = workshop;
+    public Booking(Long id, String student) {
+        this.id = id;
         this.student = student;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Workshop getWorkshop() {
-        return workshop;
-    }
-
-    public String getStudent() {
-        return student;
-    }
+    public Long getId() { return id; }
+    public String getStudent() { return student; }
 }

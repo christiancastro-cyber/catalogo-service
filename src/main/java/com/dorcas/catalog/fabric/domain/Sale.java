@@ -1,27 +1,21 @@
 package com.dorcas.catalog.fabric.domain;
 
-import jakarta.persistence.*;
 
-@Entity
 public class Sale {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
+    private final Long fabricId;
+    private final double meters;
+    private final double amount;
+    private final double remainingStock;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fabric_id")
-    private Fabric fabric;
-
-    private double meters;
-    private double amount;
-    private double remainingStock;
-
-    protected Sale() {
+    public Sale(Long fabricId, double meters, double amount, double remainingStock) {
+        this(null, fabricId, meters, amount, remainingStock);
     }
 
-    public Sale(Fabric fabric, double meters, double amount, double remainingStock) {
-        this.fabric = fabric;
+    public Sale(Long id, Long fabricId, double meters, double amount, double remainingStock) {
+        this.id = id;
+        this.fabricId = fabricId;
         this.meters = meters;
         this.amount = amount;
         this.remainingStock = remainingStock;
@@ -31,8 +25,8 @@ public class Sale {
         return id;
     }
 
-    public Fabric getFabric() {
-        return fabric;
+    public Long getFabricId() {
+        return fabricId;
     }
 
     public double getMeters() {

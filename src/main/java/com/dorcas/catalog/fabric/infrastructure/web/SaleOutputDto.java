@@ -7,7 +7,7 @@ public record SaleOutputDto(Long id, Long fabricId, double meters, double amount
     public static SaleOutputDto from(Sale sale) {
         return new SaleOutputDto(
                 sale.getId(),
-                sale.getFabric().getId(),
+                sale.getFabricId(),
                 sale.getMeters(),
                 sale.getAmount(),
                 sale.getRemainingStock());

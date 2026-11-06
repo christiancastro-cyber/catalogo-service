@@ -1,33 +1,29 @@
 package com.dorcas.catalog.fabric.domain;
 
-import jakarta.persistence.*;
 
-@Entity
+
 public class Fabric {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
 
-    @Column(nullable = false, unique = true, length = 20)
     private String reference;
 
-    @Column(nullable = false, length = 80)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Category category;
 
     private double pricePerMeter;
     private double stockMeters;
     private boolean beginnerFriendly;
 
-    protected Fabric() {
-    }
-
     public Fabric(String reference, String name, Category category,
                   double pricePerMeter, double stockMeters, boolean beginnerFriendly) {
+        this(null, reference, name, category, pricePerMeter, stockMeters, beginnerFriendly);
+    }
+
+    public Fabric(Long id, String reference, String name, Category category,
+                  double pricePerMeter, double stockMeters, boolean beginnerFriendly) {
+        this.id = id;
         this.reference = reference;
         this.name = name;
         this.category = category;

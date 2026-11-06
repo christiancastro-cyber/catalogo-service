@@ -7,18 +7,18 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-interface FabricJpaRepository extends JpaRepository<Fabric, Long> {
+interface FabricJpaRepository extends JpaRepository<FabricEntity, Long> {
 
     boolean existsByReferenceIgnoreCase(String reference);
 
     boolean existsByReferenceIgnoreCaseAndIdNot(String reference, Long id);
 
     @Query("""
-            select f from Fabric f
+            select f from FabricEntity f
             where (:category is null or f.category = :category)
               and (:beginnerFriendly is null or f.beginnerFriendly = :beginnerFriendly)
             """)
-    List<Fabric> search(Category category, Boolean beginnerFriendly);
+    List<FabricEntity> search(Category category, Boolean beginnerFriendly);
 
-    List<Fabric> findByStockMetersLessThanOrderByStockMeters(double minimum);
+    List<FabricEntity> findByStockMetersLessThanOrderByStockMeters(double minimum);
 }

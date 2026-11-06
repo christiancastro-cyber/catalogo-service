@@ -37,12 +37,15 @@ public class WorkshopService {
     @Transactional
     public Booking enroll(Long workshopId, String student) {
         Workshop workshop = findById(workshopId);
-        Booking booking = workshop.enroll(student);
-        return repository.saveBooking(booking);
+        workshop.enroll(student);
+        Workshop saved = repository.save(workshop);
+        return saved.findBookingOf(student);
     }
 
     @Transactional
     public void cancel(Long workshopId, Long bookingId) {
-        findById(workshopId).cancel(bookingId);
+        Workshop workshop = findById(workshopId);
+        workshop.cancel(bookingId);
+        repository.save(workshop);
     }
 }

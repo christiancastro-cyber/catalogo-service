@@ -64,7 +64,7 @@ public class FabricService {
         fabric.sell(meters);
         repository.save(fabric);
         double amount = fabric.priceFor(meters);
-        return repository.saveSale(new Sale(fabric, meters, amount, fabric.getStockMeters()));
+        return repository.saveSale(new Sale(fabric.getId(), meters, amount, fabric.getStockMeters()));
     }
 
     public List<Sale> listSales(Long fabricId) {

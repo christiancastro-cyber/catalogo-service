@@ -1,38 +1,36 @@
 package com.dorcas.catalog.workshop.domain;
 
-import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 public class Workshop {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 80)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Level level;
 
     private int seats;
     private double price;
 
-    @OneToMany(mappedBy = "workshop", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Booking> bookings = new ArrayList<>();
+    private List<Booking> bookings;
 
     protected Workshop() {
     }
 
     public Workshop(String name, Level level, int seats, double price) {
+        this(null, name, level, seats, price, List.of());
+    }
+
+    public Workshop(Long id, String name, Level level, int seats, double price, List<Booking> bookings) {
+        this.id = id;
         this.name = name;
         this.level = level;
         this.seats = seats;
         this.price = price;
+        this.bookings = new ArrayList<>(bookings);
     }
 
     public Booking enroll(String student) {
@@ -44,7 +42,7 @@ public class Workshop {
         if (alreadyEnrolled) {
             throw new StudentAlreadyEnrolledException(student, name);
         }
-        Booking booking = new Booking(this, student);
+        Booking booking = new Booking(student);
         bookings.add(booking);
         return booking;
     }
@@ -56,6 +54,12 @@ public class Workshop {
         }
     }
 
+    public Booking findBookingOf(String student) {
+        return bookings.stream()
+                .filter(b -> b.getStudent().equalsIgnoreCase(student))
+                .findFirst()
+                .orElse(null);
+    }
     public boolean isFull() {
         return bookings.size() >= seats;
     }

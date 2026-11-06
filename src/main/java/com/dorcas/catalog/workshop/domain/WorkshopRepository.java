@@ -11,5 +11,5 @@ public interface WorkshopRepository {
 
     Optional<Workshop> findById(Long id);
 
-    Booking saveBooking(Booking booking);
+    Workshop save(Workshop workshop);
 }

@@ -22,12 +22,15 @@ class FabricRepositoryJpa implements FabricRepository {
 
     @Override
     public List<Fabric> search(Category category, Boolean beginnerFriendly) {
-        return fabrics.search(category, beginnerFriendly);
+        return fabrics.search(category, beginnerFriendly).stream()
+                .map(FabricMapper::toDomain)
+                .toList();
     }
 
     @Override
     public Optional<Fabric> findById(Long id) {
-        return fabrics.findById(id);
+        return fabrics.findById(id)
+                .map(FabricMapper::toDomain);
     }
 
     @Override
@@ -42,22 +45,26 @@ class FabricRepositoryJpa implements FabricRepository {
 
     @Override
     public Fabric save(Fabric fabric) {
-        return fabrics.save(fabric);
+        FabricEntity saved = fabrics.save(FabricMapper.toEntity(fabric));
+        return FabricMapper.toDomain(saved);
     }
 
     @Override
     public void delete(Fabric fabric) {
-        fabrics.delete(fabric);
+        fabrics.deleteById(fabric.getId());
     }
 
     @Override
     public List<Fabric> findWithStockBelow(double minimum) {
-        return fabrics.findByStockMetersLessThanOrderByStockMeters(minimum);
+        return fabrics.findByStockMetersLessThanOrderByStockMeters(minimum).stream()
+                .map(FabricMapper::toDomain)
+                .toList();
     }
 
     @Override
     public Sale saveSale(Sale sale) {
-        return sales.save(sale);
+        SaleEntity saved = sales.save(FabricMapper.toEntity(sale));
+        return FabricMapper.toDomain(saved);
     }
 
     @Override
@@ -67,7 +74,9 @@ class FabricRepositoryJpa implements FabricRepository {
 
     @Override
     public List<Sale> findSales(Long fabricId) {
-        return sales.findByFabricIdOrderByIdAsc(fabricId);
+        return sales.findByFabricIdOrderByIdAsc(fabricId).stream()
+                .map(FabricMapper::toDomain)
+                .toList();
     }
 
     @Override
