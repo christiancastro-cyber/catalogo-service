@@ -1,6 +1,5 @@
 package com.dorcas.catalog.workshop.infrastructure.persistence;
 
-import com.dorcas.catalog.workshop.domain.Booking;
 import com.dorcas.catalog.workshop.domain.Level;
 import com.dorcas.catalog.workshop.domain.Workshop;
 import com.dorcas.catalog.workshop.domain.WorkshopRepository;

@@ -1,7 +1,6 @@
 package com.dorcas.catalog.fabric.infrastructure.persistence;
 
 import com.dorcas.catalog.fabric.domain.Category;
-import com.dorcas.catalog.fabric.domain.Fabric;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -6,19 +6,16 @@ import java.util.List;
 
 public class Workshop {
 
-    private Long id;
+    private final Long id;
 
-    private String name;
+    private final String name;
 
-    private Level level;
+    private final Level level;
 
-    private int seats;
-    private double price;
+    private final int seats;
+    private final double price;
 
-    private List<Booking> bookings;
-
-    protected Workshop() {
-    }
+    private final List<Booking> bookings;
 
     public Workshop(String name, Level level, int seats, double price) {
         this(null, name, level, seats, price, List.of());
@@ -48,7 +45,7 @@ public class Workshop {
     }
 
     public void cancel(Long bookingId) {
-        boolean removed = bookings.removeIf(b -> b.getId().equals(bookingId));
+        boolean removed = bookings.removeIf(b -> bookingId.equals(b.getId()));
         if (!removed) {
             throw new BookingNotFoundException(id, bookingId);
         }
