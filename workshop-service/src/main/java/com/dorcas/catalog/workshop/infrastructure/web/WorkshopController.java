@@ -55,4 +55,10 @@ public class WorkshopController {
     public void cancel(@PathVariable Long id, @PathVariable Long bookingId) {
         workshopService.cancel(id, bookingId);
     }
+
+    @GetMapping("/{id}/kit")
+    public KitOutputDto kit(@PathVariable Long id) {
+        return KitOutputDto.from(workshopService.kitDetails(id));
+    }
+
 }

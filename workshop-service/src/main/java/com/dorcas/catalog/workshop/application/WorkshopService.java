@@ -10,9 +10,11 @@ import java.util.List;
 public class WorkshopService {
 
     private final WorkshopRepository repository;
+    private final FabricCatalog fabricCatalog;
 
-    public WorkshopService(WorkshopRepository repository) {
+    public WorkshopService(WorkshopRepository repository, FabricCatalog fabricCatalog) {
         this.repository = repository;
+        this.fabricCatalog = fabricCatalog;
     }
 
     public List<Workshop> list(Level level, Boolean withFreeSeats) {
@@ -47,5 +49,14 @@ public class WorkshopService {
         Workshop workshop = findById(workshopId);
         workshop.cancel(bookingId);
         repository.save(workshop);
+    }
+
+    public KitDetails kitDetails(Long workshopId) {
+        Workshop workshop = findById(workshopId);
+        Kit kit = workshop.getKit()
+                .orElseThrow(() -> new KitNotFoundException(workshopId));
+        FabricInfo fabric = fabricCatalog.findFabric(kit.fabricId())
+                .orElseThrow(() -> new KitFabricNotFoundException(kit.fabricId()));
+        return KitDetails.of(kit, fabric);
     }
 }

@@ -3,6 +3,7 @@ package com.dorcas.catalog.workshop.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Workshop {
 
@@ -14,19 +15,25 @@ public class Workshop {
 
     private final int seats;
     private final double price;
+    private final Kit kit;
 
     private final List<Booking> bookings;
 
     public Workshop(String name, Level level, int seats, double price) {
-        this(null, name, level, seats, price, List.of());
+        this(name, level, seats, price, null);
     }
 
-    public Workshop(Long id, String name, Level level, int seats, double price, List<Booking> bookings) {
+    public Workshop(String name, Level level, int seats, double price, Kit kit) {
+        this(null, name, level, seats, price, kit, List.of());
+    }
+
+    public Workshop(Long id, String name, Level level, int seats, double price, Kit kit,  List<Booking> bookings) {
         this.id = id;
         this.name = name;
         this.level = level;
         this.seats = seats;
         this.price = price;
+        this.kit = kit;
         this.bookings = new ArrayList<>(bookings);
     }
 
@@ -83,6 +90,10 @@ public class Workshop {
 
     public int getSeats() {
         return seats;
+    }
+
+    public Optional<Kit> getKit() {
+        return Optional.ofNullable(kit);
     }
 
     public double getPrice() {

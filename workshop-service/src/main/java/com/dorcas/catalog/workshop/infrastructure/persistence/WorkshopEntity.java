@@ -23,6 +23,8 @@ class WorkshopEntity {
 
     private int seats;
     private double price;
+    private Long kitFabricId;
+    private Double kitMeters;
 
     @OneToMany(mappedBy = "workshop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingEntity> bookings = new ArrayList<>();
@@ -30,11 +32,13 @@ class WorkshopEntity {
     protected WorkshopEntity() {
     }
 
-    WorkshopEntity(String name, Level level, int seats, double price) {
+    WorkshopEntity(String name, Level level, int seats, double price, Long kitFabricId, Double kitMeters) {
         this.name = name;
         this.level = level;
         this.seats = seats;
         this.price = price;
+        this.kitFabricId = kitFabricId;
+        this.kitMeters = kitMeters;
     }
 
     Long getId() { return id; }
@@ -42,5 +46,7 @@ class WorkshopEntity {
     Level getLevel() { return level; }
     int getSeats() { return seats; }
     double getPrice() { return price; }
+    Long getKitFabricId() { return kitFabricId; }
+    Double getKitMeters() { return kitMeters; }
     List<BookingEntity> getBookings() { return bookings; }
 }

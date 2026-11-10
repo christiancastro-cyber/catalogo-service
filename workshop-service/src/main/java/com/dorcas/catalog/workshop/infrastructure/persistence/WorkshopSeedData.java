@@ -1,5 +1,6 @@
 package com.dorcas.catalog.workshop.infrastructure.persistence;
 
+import com.dorcas.catalog.workshop.domain.Kit;
 import com.dorcas.catalog.workshop.domain.Level;
 import com.dorcas.catalog.workshop.domain.Workshop;
 import com.dorcas.catalog.workshop.domain.WorkshopRepository;
@@ -19,9 +20,9 @@ class WorkshopSeedData {
                 return;
             }
             List.of(
-                    new Workshop("Taller de Canastilla", Level.BEGINNER, 8, 45.0),
-                    new Workshop("Patronaje Básico", Level.BEGINNER, 5, 50.0),
-                    new Workshop("Costura Básica", Level.BEGINNER, 5, 55.0),
+                    new Workshop("Taller de Canastilla", Level.BEGINNER, 8, 45.0, new Kit(1L, 2.0)),
+                    new Workshop("Patronaje Básico", Level.BEGINNER, 5, 50.0, new Kit(5L, 1.5)),
+                    new Workshop("Costura Básica", Level.BEGINNER, 5, 55.0, new Kit(2L, 1.0)),
                     new Workshop("Corsetería", Level.INTERMEDIATE, 2, 60.0)
             ).forEach(workshops::save);
         };
