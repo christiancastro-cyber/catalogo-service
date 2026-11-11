@@ -17,8 +17,10 @@
 
     <modules>
         <module>common</module>
+        <module>eureka-server</module>
         <module>fabric-service</module>
         <module>workshop-service</module>
+        <module>gateway</module>
     </modules>
 
     <properties>

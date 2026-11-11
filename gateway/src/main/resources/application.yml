@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: fabric-service
+              uri: lb://fabric-service
+              predicates:
+                - Path=/api/fabrics/**
+            - id: workshop-service
+              uri: lb://workshop-service
+              predicates:
+                - Path=/api/workshops/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
