@@ -8,5 +8,6 @@ public enum WorkshopErrorCode implements ErrorCode {
     WORKSHOP_FULL,
     STUDENT_ALREADY_ENROLLED,
     KIT_NOT_FOUND,
-    KIT_FABRIC_NOT_FOUND
+    KIT_FABRIC_NOT_FOUND,
+    FABRIC_CATALOG_UNAVAILABLE
 }

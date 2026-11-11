@@ -1,6 +1,7 @@
 package com.dorcas.catalog.workshop.infrastructure.web;
 
 import com.dorcas.catalog.workshop.domain.FabricCatalog;
+import com.dorcas.catalog.workshop.domain.FabricCatalogUnavailableException;
 import com.dorcas.catalog.workshop.domain.FabricInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,14 @@ class KitApiTest {
         mockMvc.perform(get("/api/workshops/1/kit"))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("KIT_FABRIC_NOT_FOUND"));
+    }
+
+    @Test
+    void kitWhenTheFabricCatalogIsDownReturns503() throws Exception {
+        when(fabricCatalog.findFabric(1L)).thenThrow(new FabricCatalogUnavailableException());
+
+        mockMvc.perform(get("/api/workshops/1/kit"))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.code").value("FABRIC_CATALOG_UNAVAILABLE"));
     }
 }

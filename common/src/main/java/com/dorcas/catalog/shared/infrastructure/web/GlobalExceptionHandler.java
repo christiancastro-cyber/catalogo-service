@@ -1,9 +1,6 @@
 package com.dorcas.catalog.shared.infrastructure.web;
 
-import com.dorcas.catalog.shared.domain.CommonErrorCode;
-import com.dorcas.catalog.shared.domain.ConflictException;
-import com.dorcas.catalog.shared.domain.ErrorCode;
-import com.dorcas.catalog.shared.domain.NotFoundException;
+import com.dorcas.catalog.shared.domain.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,10 +52,17 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, CommonErrorCode.INVALID_DATA, e.getMessage(), request, List.of());
     }
 
+    @ExceptionHandler(ServiceUnavailableException.class)
+    public ResponseEntity<ErrorInfo> serviceUnavailable(ServiceUnavailableException e, HttpServletRequest request) {
+        return build(HttpStatus.SERVICE_UNAVAILABLE, e.getCode(), e.getMessage(), request, List.of());
+    }
+
     private ResponseEntity<ErrorInfo> build(HttpStatus status, ErrorCode code, String message,
                                             HttpServletRequest request, List<ErrorDetail> details) {
         ErrorInfo error = new ErrorInfo(status.value(), status.getReasonPhrase(), code.name(), message,
                 request.getRequestURI(), Instant.now(), details);
         return ResponseEntity.status(status).body(error);
     }
+
+
 }
